@@ -1,20 +1,25 @@
-import { useReducer, useContext } from 'react'
-import ThemeContex from './ThemeContext'
-import './App.css'
+import { AppProvider, useAppContext } from "./ThemeContext";
+import ThemeChanger from "./components/ThemeChanger";
+import List from "./components/List";
+import "./App.css";
 
-function reducer(state, action){
-  d
-}
+const Main = () => {
+    const { theme } = useAppContext();
+
+    return (
+        <div>
+            <ThemeChanger />
+            <List />
+        </div>
+    );
+};
 
 function App() {
-  let [todos, dispatch] = useReducer(reducer, {type: })
-  return (
-    <>
-      <ThemeContex>
-
-      </ThemeContex>  
-    </>
-  )
+    return (
+        <AppProvider>
+            <Main />
+        </AppProvider>
+    );
 }
 
-export default App
+export default App;

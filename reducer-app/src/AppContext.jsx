@@ -5,11 +5,15 @@ const AppContext = createContext();
 const themeReducer = (state, action) => {
     switch (action.type) {
         case "LIGHT":
-            return "light";
+            return "white";
         case "DARK":
             return "dark";
         case "RED":
             return "red";
+        case "BLUE":
+            return "blue";
+        case "GREEN":
+            return "green";
         default:
             return state;
     }

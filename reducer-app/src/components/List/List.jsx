@@ -1,19 +1,20 @@
 import React from "react";
-import { useAppContext } from "../ThemeContext";
+import { useAppContext } from "../../AppContext";
 import { useState } from "react";
+import "./list.css";
 
 export default function List() {
     const { todos, todoDispatch } = useAppContext();
     const [text, setText] = useState("");
-    const [isDone, setIsDone] = useState(false);
 
     return (
-        <div>
-            <div>
+        <div className='todoContainer'>
+            <div className='topContent'>
                 <input
                     type='text'
                     value={text}
                     onChange={(e) => setText(e.target.value)}
+                    className='todoInput'
                 />
                 <button
                     onClick={() => {
@@ -22,8 +23,8 @@ export default function List() {
                             title: text,
                         });
                         setText("");
-                        console.log(todos);
                     }}
+                    className='todoBtn'
                 >
                     Add
                 </button>
@@ -31,19 +32,15 @@ export default function List() {
             {todos.map((elm) => {
                 return (
                     elm && (
-                        <div key={elm.id}>
-                            <h3
-                                style={
-                                    elm.done
-                                        ? {
-                                              textDecoration: "line-through",
-                                              color: "gray",
-                                          }
-                                        : {}
-                                }
-                            >
-                                {elm.title}
-                            </h3>
+                        <div
+                            className='todo'
+                            key={elm.id}
+                            style={
+                                elm.done
+                                    ? { backgroundColor: "rgb(82, 82, 82)" }
+                                    : {}
+                            }
+                        >
                             <input
                                 type='checkbox'
                                 onChange={() => {
@@ -53,6 +50,21 @@ export default function List() {
                                     });
                                 }}
                             />
+                            <div className='todoContent'>
+                                <h3
+                                    style={
+                                        elm.done
+                                            ? {
+                                                  textDecoration:
+                                                      "line-through",
+                                                  color: "gray",
+                                              }
+                                            : {}
+                                    }
+                                >
+                                    {elm.title}
+                                </h3>
+                            </div>
                         </div>
                     )
                 );

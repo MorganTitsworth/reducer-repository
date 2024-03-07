@@ -1,0 +1,45 @@
+.themeChangerContainer {
+    background-color: rgb(82, 82, 82);
+    padding: 5px;
+    border-radius: 15px;
+    display: flex;
+    gap: 2.5px;
+}
+
+.light,
+.dark,
+.red,
+.blue,
+.green {
+    border-radius: 60px;
+    min-height: 30px;
+    min-width: 30px;
+}
+
+.light:hover,
+.dark:hover,
+.red:hover,
+.blue:hover,
+.green:hover {
+    transform: scale(1.1);
+}
+
+.light {
+    background-color: white;
+}
+
+.dark {
+    background-color: rgb(32, 32, 32);
+}
+
+.red {
+    background-color: rgb(173, 0, 0);
+}
+
+.blue {
+    background-color: rgb(0, 0, 173);
+}
+
+.green {
+    background-color: rgb(0, 92, 0);
+}

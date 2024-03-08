@@ -2,6 +2,8 @@ import React from "react";
 import { useAppContext } from "../../AppContext";
 import { useState, useEffect } from "react";
 import "./list.css";
+import { FaTrashAlt } from "react-icons/fa";
+import { FaPencilAlt } from "react-icons/fa";
 
 export default function List() {
     const { todos, todoDispatch } = useAppContext();
@@ -109,7 +111,7 @@ export default function List() {
                                                 }}
                                                 disabled={isEditing}
                                             >
-                                                Edit
+                                                <FaPencilAlt />
                                             </button>
                                             <button
                                                 onClick={() =>
@@ -120,7 +122,7 @@ export default function List() {
                                                 }
                                                 disabled={isEditing}
                                             >
-                                                Delete
+                                                <FaTrashAlt />
                                             </button>
                                         </>
                                     )}

@@ -1,6 +1,7 @@
-import { useReducer, useState } from 'react';
-import { createContext,useContext } from 'react';
+import { useEffect, useReducer, useState } from 'react';
+import { createContext} from 'react';
 import "./App.css"
+import WithdrawalAmount from './pages/WithdrawAmount';
 
 function reducer(state, action) {  //state = balance:0; action = depositAmount:"";type: ""
 
@@ -22,10 +23,10 @@ function reducer(state, action) {  //state = balance:0; action = depositAmount:"
 
 
 
-const DepositMoneyContext = createContext();//create a createContext first to use useContext how I did it
-const Trigger = createContext();
-const DepositAmountContext = createContext();
-const DispatchContext = createContext();
+export const DepositMoneyContext = createContext();//create a createContext first to use useContext how I did it
+export const Trigger = createContext();
+export const DepositAmountContext = createContext();
+export const DispatchContext = createContext();
 
 export default function App() {
   const [state, dispatch] = useReducer(reducer, { balance: 0 }); //only way you can call balance is state.balance
@@ -33,8 +34,9 @@ export default function App() {
   const [close, setClose] = useState(false)
   
   
-  //const depositMoney = [10,20,50,100];
-  
+  useEffect(() => {
+    setDeposit(0); // Reset deposit to 0 whenever balance changes
+  }, [state.balance]);
 
   return (
  
@@ -42,33 +44,35 @@ export default function App() {
        <Trigger.Provider value = {setClose}>
         <DepositAmountContext.Provider value = {state.balance}>
           <DispatchContext.Provider value = {dispatch} >
-            <div className="main">
-              {close ? <WithdrawalAmount/> :
-                <>
-                  <div className="label">
-                    <label>Enter your desposit: </label>
-                      <input
-                        type="number" 
-                        value={deposit} //the value of the deposit is a useState, which onChange changes the value
-                        onChange={(e) => setDeposit(e.target.value)}
-                      />
-                    <button onClick={() => {
-                      dispatch({ type: 'deposit', depositAmount: deposit });//type is only being called here. value deposit is being called from useState; depositAmount is the parameter action from reducer
-                      setDeposit(0)}}> {/* set the deposit amount back to zero*/}
-                      Deposit
+          {/*  <Account /> would not render correctly. The code below was in here */}
+          <div className="main">
+            {close ? <WithdrawalAmount/> :
+              <>
+                <div className="label">
+                  <label>Enter your desposit: </label>
+                    <input
+                      type="number" 
+                      value={deposit} //the value of the deposit is a useState, which onChange changes the value
+                      onChange={(e) => setDeposit(e.target.value)}
+                    />
+                  <button onClick={() => {
+                    dispatch({ type: 'deposit', depositAmount: deposit });//type is only being called here. value deposit is being called from useState; depositAmount is the parameter action from reducer
+                    {/* setDeposit(0) ....set the deposit amount back to zero, moved it as a useEffect*/}
+                  }}> 
+                    Deposit
+                  </button>
+                  <p>Hello! You have deposited ${state.balance}.</p>
+                  <div className="withdrawalButton">
+                    <label>When done, click continue! </label>
+                    <button onClick={() => setClose(!close)}>
+                      Continue
                     </button>
-                    <p>Hello! You have deposited ${state.balance}.</p>
-                    <div className="withdrawalButton">
-                      <label>When done, click continue! </label>
-                      <button onClick={() => setClose(!close)}>
-                        Continue
-                      </button>
-                    </div>
-                </div>
-                
-                </>
-              }
-            </div>
+                  </div>
+              </div>
+              
+              </>
+            }
+          </div>
           </DispatchContext.Provider>
         </DepositAmountContext.Provider>
       </Trigger.Provider>
@@ -77,51 +81,3 @@ export default function App() {
   );
 }
 
-function WithdrawalAmount() {
-  const depositMoney = useContext(DepositMoneyContext);
-  const toggleClose = useContext(Trigger);
-  const dispatch = useContext(DispatchContext);
-  const [randomAmount, setRandomAmount] = useState(false);
-  const [withdrawalAmount, setWithdrawalAmount] = useState(0);
-  
-  
-
-  const handleAmountRequesting = (amount) => { //handles the transtation to reducer
-    dispatch({ type: "amountRequesting", withdrawalNumber: amount }); //adjust the reducer number and call it from App function.
-    toggleClose();
-  };
-
-  return (
-    <>
-      {!randomAmount ? (
-        <div className="deposit_button">
-          {depositMoney.map((amount, index) => (
-            <button key={index} onClick={() => handleAmountRequesting(amount)}>
-              {amount}
-            </button>
-          ))}
-          <button
-            className="differentAmount"
-            onClick={() => setRandomAmount(!randomAmount)}
-          >
-            Enter Amount
-          </button>
-        </div>
-      ) : (
-        <>
-          <input
-            type="number"
-            value={withdrawalAmount}
-            onChange={(e) => setWithdrawalAmount(e.target.value)}
-          />
-          <button
-            className="differentAmount"
-            onClick={() => handleAmountRequesting(withdrawalAmount)}
-          >
-            Enter Amount
-          </button>
-        </>
-      )}
-    </>
-  );
-}

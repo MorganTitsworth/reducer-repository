@@ -1,5 +1,4 @@
 .themeChangerContainer {
-    background-color: rgb(82, 82, 82);
     padding: 5px;
     border-radius: 15px;
     display: flex;
@@ -22,6 +21,7 @@
 .blue:hover,
 .green:hover {
     transform: scale(1.1);
+    cursor: pointer;
 }
 
 .light {

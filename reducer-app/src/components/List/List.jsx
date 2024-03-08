@@ -8,13 +8,13 @@ export default function List() {
     const [text, setText] = useState("");
 
     return (
-        <div className='todoContainer'>
-            <div className='topContent'>
+        <div className="todoContainer">
+            <div className="topContent">
                 <input
-                    type='text'
+                    type="text"
                     value={text}
                     onChange={(e) => setText(e.target.value)}
-                    className='todoInput'
+                    className="todoInput"
                 />
                 <button
                     onClick={() => {
@@ -24,7 +24,7 @@ export default function List() {
                         });
                         setText("");
                     }}
-                    className='todoBtn'
+                    className="todoBtn"
                 >
                     Add
                 </button>
@@ -33,7 +33,7 @@ export default function List() {
                 return (
                     elm && (
                         <div
-                            className='todo'
+                            className="todo"
                             key={elm.id}
                             style={
                                 elm.done
@@ -42,7 +42,7 @@ export default function List() {
                             }
                         >
                             <input
-                                type='checkbox'
+                                type="checkbox"
                                 onChange={() => {
                                     todoDispatch({
                                         id: elm.id,
@@ -50,7 +50,7 @@ export default function List() {
                                     });
                                 }}
                             />
-                            <div className='todoContent'>
+                            <div className="todoContent">
                                 <h3
                                     style={
                                         elm.done
@@ -64,6 +64,10 @@ export default function List() {
                                 >
                                     {elm.title}
                                 </h3>
+                                <div className="todoContentBtns">
+                                    <button>Edit</button>
+                                    <button onClick={() => todoDispatch({type: 'DELETE_TODO', id: elm.id})}>Delete</button>
+                                </div>
                             </div>
                         </div>
                     )

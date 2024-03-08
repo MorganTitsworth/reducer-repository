@@ -32,6 +32,15 @@ const todoReducer = (state, action) => {
                     ? { id: elm.id, title: elm.title, done: !elm.done }
                     : elm
             );
+        case "DELETE_TODO":
+            return state.map((elm) => {
+                if(elm.id === action.id){
+                    let deleteTodo = state.indexOf(elm)
+                    console.log(state.splice(deleteTodo, 1))
+                    console.log(state);
+                }
+                return elm;
+            })
         default:
             return state;
     }

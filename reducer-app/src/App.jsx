@@ -31,14 +31,15 @@ const Main = () => {
                             className='bgImg'
                             style={{
                                 backgroundImage: "url(" + imgData + ")",
-                                filter: "blur(4px),",
                             }}
                         ></div>
                     ) : (
                         <p>Loading...</p>
                     )}
                 </div>
-                <div className='content'>
+                <div className='content' style={{
+                                backgroundImage: "url(" + imgData + ")",
+                            }}>
                     <div className='otherContent'>
                         <h2>To-Do's</h2>
                         <div className='themeContent'>

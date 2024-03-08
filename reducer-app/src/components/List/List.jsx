@@ -1,20 +1,26 @@
 import React from "react";
 import { useAppContext } from "../../AppContext";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import "./list.css";
 
 export default function List() {
     const { todos, todoDispatch } = useAppContext();
     const [text, setText] = useState("");
+    const [updateText, setUpdateText] = useState("");
+    const [isEditing, setIsEditing] = useState(false);
+
+    useEffect(() => {
+        console.log(todos);
+    }, [todos]);
 
     return (
-        <div className="todoContainer">
-            <div className="topContent">
+        <div className='todoContainer'>
+            <div className='topContent'>
                 <input
-                    type="text"
+                    type='text'
                     value={text}
                     onChange={(e) => setText(e.target.value)}
-                    className="todoInput"
+                    className='todoInput'
                 />
                 <button
                     onClick={() => {
@@ -24,7 +30,7 @@ export default function List() {
                         });
                         setText("");
                     }}
-                    className="todoBtn"
+                    className='todoBtn'
                 >
                     Add
                 </button>
@@ -33,7 +39,7 @@ export default function List() {
                 return (
                     elm && (
                         <div
-                            className="todo"
+                            className='todo'
                             key={elm.id}
                             style={
                                 elm.done
@@ -42,7 +48,7 @@ export default function List() {
                             }
                         >
                             <input
-                                type="checkbox"
+                                type='checkbox'
                                 onChange={() => {
                                     todoDispatch({
                                         id: elm.id,
@@ -50,23 +56,71 @@ export default function List() {
                                     });
                                 }}
                             />
-                            <div className="todoContent">
-                                <h3
-                                    style={
-                                        elm.done
-                                            ? {
-                                                  textDecoration:
-                                                      "line-through",
-                                                  color: "gray",
-                                              }
-                                            : {}
-                                    }
-                                >
-                                    {elm.title}
-                                </h3>
-                                <div className="todoContentBtns">
-                                    <button>Edit</button>
-                                    <button onClick={() => todoDispatch({type: 'DELETE_TODO', id: elm.id})}>Delete</button>
+                            <div className='todoContent'>
+                                {elm.editing ? (
+                                    <input
+                                        type='text'
+                                        onChange={(e) =>
+                                            setUpdateText(e.target.value)
+                                        }
+                                    />
+                                ) : (
+                                    <h3
+                                        style={
+                                            elm.done
+                                                ? {
+                                                      textDecoration:
+                                                          "line-through",
+                                                      color: "gray",
+                                                  }
+                                                : {}
+                                        }
+                                    >
+                                        {elm.title}
+                                    </h3>
+                                )}
+                                <div className='todoContentBtns'>
+                                    {elm.editing ? (
+                                        <button
+                                            onClick={() => {
+                                                todoDispatch({
+                                                    type: "UPDATE_TODO",
+                                                    id: elm.id,
+                                                    title: updateText,
+                                                });
+                                                setUpdateText("");
+                                                setIsEditing(!isEditing);
+                                            }}
+                                        >
+                                            Update
+                                        </button>
+                                    ) : (
+                                        <>
+                                            <button
+                                                onClick={() => {
+                                                    todoDispatch({
+                                                        type: "EDIT_TODO",
+                                                        id: elm.id,
+                                                    });
+                                                    setIsEditing(!isEditing);
+                                                }}
+                                                disabled={isEditing}
+                                            >
+                                                Edit
+                                            </button>
+                                            <button
+                                                onClick={() =>
+                                                    todoDispatch({
+                                                        type: "DELETE_TODO",
+                                                        id: elm.id,
+                                                    })
+                                                }
+                                                disabled={isEditing}
+                                            >
+                                                Delete
+                                            </button>
+                                        </>
+                                    )}
                                 </div>
                             </div>
                         </div>

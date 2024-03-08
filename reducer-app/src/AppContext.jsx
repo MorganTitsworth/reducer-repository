@@ -24,23 +24,54 @@ const todoReducer = (state, action) => {
         case "ADD_TODO":
             return [
                 ...state,
-                { id: state.length + 1, title: action.title, done: false },
+                {
+                    id: state.length + 1,
+                    title: action.title,
+                    done: false,
+                    editing: false,
+                },
             ];
         case "MARK_DONE":
             return state.map((elm) =>
                 elm.id === action.id
-                    ? { id: elm.id, title: elm.title, done: !elm.done }
+                    ? {
+                          id: elm.id,
+                          title: elm.title,
+                          done: !elm.done,
+                          editing: elm.editing,
+                      }
                     : elm
             );
         case "DELETE_TODO":
             return state.map((elm) => {
-                if(elm.id === action.id){
-                    let deleteTodo = state.indexOf(elm)
-                    console.log(state.splice(deleteTodo, 1))
-                    console.log(state);
+                if (elm.id === action.id) {
+                    let deleteTodo = state.indexOf(elm);
+                    state.splice(deleteTodo, 1);
                 }
                 return elm;
-            })
+            });
+        case "EDIT_TODO":
+            return state.map((elm) =>
+                elm.id === action.id
+                    ? {
+                          id: elm.id,
+                          title: elm.title,
+                          editing: !elm.editing,
+                          done: elm.done,
+                      }
+                    : elm
+            );
+        case "UPDATE_TODO":
+            return state.map((elm) =>
+                elm.id === action.id
+                    ? {
+                          id: elm.id,
+                          title: action.title,
+                          editing: !elm.editing,
+                          done: elm.done,
+                      }
+                    : elm
+            );
         default:
             return state;
     }

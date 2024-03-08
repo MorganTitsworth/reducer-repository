@@ -37,9 +37,12 @@ const Main = () => {
                         <p>Loading...</p>
                     )}
                 </div>
-                <div className='content' style={{
-                                backgroundImage: "url(" + imgData + ")",
-                            }}>
+                <div
+                    className='content'
+                    style={{
+                        backgroundImage: "url(" + imgData + ")",
+                    }}
+                >
                     <div className='otherContent'>
                         <h2>To-Do's</h2>
                         <div className='themeContent'>

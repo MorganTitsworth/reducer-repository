@@ -21,6 +21,7 @@ export default function List() {
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     className='todoInput'
+                    placeholder='Add a to-do...'
                 />
                 <button
                     onClick={() => {
@@ -59,6 +60,7 @@ export default function List() {
                             <div className='todoContent'>
                                 {elm.editing ? (
                                     <input
+                                        value={updateText}
                                         type='text'
                                         onChange={(e) =>
                                             setUpdateText(e.target.value)
@@ -103,6 +105,7 @@ export default function List() {
                                                         id: elm.id,
                                                     });
                                                     setIsEditing(!isEditing);
+                                                    setUpdateText(elm.title);
                                                 }}
                                                 disabled={isEditing}
                                             >

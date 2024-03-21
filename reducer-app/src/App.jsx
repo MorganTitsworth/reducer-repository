@@ -1,57 +1,36 @@
 import { AppProvider, useAppContext } from "./AppContext";
-import ThemeChanger from "./components/ThemeChanger/ThemeChanger";
-import { useState, useEffect } from "react";
 import "./App.css";
-import List from "./components/List/List";
-import axios from "axios";
+import Item from "./components/Item/Item";
+import Cart from "./components/Cart/Cart";
+
+const items = [
+    { id: 1, name: "Laptop", cost: 1000 },
+    { id: 2, name: "Smartphone", cost: 800 },
+    { id: 3, name: "Headphones", cost: 100 },
+    { id: 4, name: "Mouse", cost: 50 },
+    { id: 5, name: "Keyboard", cost: 80 },
+];
 
 const Main = () => {
-    const { theme } = useAppContext();
-    const [imgData, setImgData] = useState();
-    const [canDisplay, setCanDisplay] = useState(false);
-
-    useEffect(() => {
-        axios
-            .get(
-                `https://api.unsplash.com/photos/random?&query=${theme}&orientation=landscape&client_id=k6kZxCBgIFiypQSUZ3WICAniq3lYxUisfSyEGJDrubo`
-            )
-            .then((res) => {
-                setImgData(res.data.urls.full);
-                setCanDisplay(true);
-            })
-            .catch((err) => console.log(err));
-    }, [theme]);
+    const { cartState, cartDispatch } = useAppContext();
+    function handleAdd() {
+        cartDispatch();
+    }
 
     return (
         <div className='app-container'>
-            <div className='background'>
-                <div className='bgImgContainer'>
-                    {canDisplay ? (
-                        <div
-                            className='bgImg'
-                            style={{
-                                backgroundImage: "url(" + imgData + ")",
-                            }}
-                        ></div>
-                    ) : (
-                        <p>Loading...</p>
-                    )}
-                </div>
-                <div
-                    className='content'
-                    style={{
-                        backgroundImage: "url(" + imgData + ")",
-                    }}
-                >
-                    <div className='otherContent'>
-                        <h2>To-Do's</h2>
-                        <div className='themeContent'>
-                            <h4>Change Theme:</h4>
-                            <ThemeChanger />
-                        </div>
-                    </div>
-                    <List />
-                </div>
+            <div className='itemContainer'>
+                {items.map((elm) => {
+                    return (
+                        <>
+                            <Item id={elm.id} name={elm.name} cost={elm.cost} />
+                            <button onClick={handleAdd}>Add to Cart</button>
+                        </>
+                    );
+                })}
+            </div>
+            <div className='cartContainer'>
+                <Cart />
             </div>
         </div>
     );

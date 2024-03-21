@@ -28,15 +28,15 @@ const cartReducer = (state, action) => {
             }
         case "REMOVE_ITEM":
             state.totalCost -= action.cost;
-            return (state = state.items.map((item) => {
+            return state.items.map((item) => {
                 if (item.id === action.id) {
                     if (item.count > 1) item.count--;
                     else {
-                        state.items.splice(state.items.indexOf(item), 1);
-                        return state;
+                        let deleteItem = state.items.indexOf(item);
+                        state.items.splice(deleteItem, 1);
                     }
                 } else return item;
-            }));
+            });
     }
 };
 

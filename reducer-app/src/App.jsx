@@ -15,34 +15,18 @@ const items = [
 const Main = () => {
     const { cartState, cartDispatch } = useAppContext();
 
-    function handleAdd(id, name, cost) {
-        let contains = false;
-        cartState.items.forEach((item) => {
-            if (item.id === id) contains = true;
-        });
-
-        if (contains) {
-            cartDispatch({
-                type: "ADD_ANOTHER",
-                id: id,
-            });
-        } else {
-            cartDispatch({
-                type: "ADD_ITEM",
-                id: id,
-                name: name,
-                cost: cost,
-            });
-        }
-    }
-
     return (
         <div className='app-container'>
             <div className='itemContainer'>
                 {items.map((elm) => {
                     return (
                         <>
-                            <Item id={elm.id} name={elm.name} cost={elm.cost} />
+                            <Item
+                                key={elm.id}
+                                id={elm.id}
+                                name={elm.name}
+                                cost={elm.cost}
+                            />
                             <button
                                 onClick={cartDispatch({
                                     type: "ADD_ITEM",

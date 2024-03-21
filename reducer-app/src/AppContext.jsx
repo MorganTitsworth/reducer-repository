@@ -8,10 +8,10 @@ const cartReducer = (state, action) => {
             state.totalCost += action.cost;
             let contains = false;
             state.items.map((item) => {
-                if (item.id === id) contains = true;
+                if (item.id === action.id) contains = true;
             });
             if (!contains) {
-                return [
+                state.items = [
                     ...state.items,
                     {
                         id: action.id,
@@ -21,21 +21,23 @@ const cartReducer = (state, action) => {
                     },
                 ];
             } else {
-                state = state.items.map((item) => {
+                state.items.map((item) => {
                     if (item.id === action.id) item.count++;
                     return item;
                 });
             }
+            break;
         case "REMOVE_ITEM":
             state.totalCost -= action.cost;
-            return state.items.map((item) => {
+            state.items.map((item) => {
                 if (item.id === action.id) {
                     if (item.count > 1) item.count--;
                     else {
                         let deleteItem = state.items.indexOf(item);
                         state.items.splice(deleteItem, 1);
                     }
-                } else return item;
+                }
+                return item;
             });
     }
 };

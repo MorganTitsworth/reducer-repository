@@ -15,6 +15,10 @@ const items = [
 const Main = () => {
     const { cartState, cartDispatch } = useAppContext();
 
+    useEffect(() => {
+        console.log(cartState);
+    }, [cartState]);
+
     return (
         <div className='app-container'>
             <div className='itemContainer'>
@@ -28,12 +32,14 @@ const Main = () => {
                                 cost={elm.cost}
                             />
                             <button
-                                onClick={cartDispatch({
-                                    type: "ADD_ITEM",
-                                    id: elm.id,
-                                    name: elm.name,
-                                    cost: elm.cost,
-                                })}
+                                onClick={() =>
+                                    cartDispatch({
+                                        type: "ADD_ITEM",
+                                        id: elm.id,
+                                        name: elm.name,
+                                        cost: elm.cost,
+                                    })
+                                }
                             >
                                 Add to Cart
                             </button>

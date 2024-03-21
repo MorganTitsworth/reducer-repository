@@ -14,9 +14,6 @@ const items = [
 
 const Main = () => {
     const { cartState, cartDispatch } = useAppContext();
-    useEffect(() => {
-        console.log(cartState);
-    }, [cartState]);
 
     function handleAdd(id, name, cost) {
         let contains = false;
@@ -47,7 +44,12 @@ const Main = () => {
                         <>
                             <Item id={elm.id} name={elm.name} cost={elm.cost} />
                             <button
-                                onClick={handleAdd(elm.id, elm.name, elm.cost)}
+                                onClick={cartDispatch({
+                                    type: "ADD_ITEM",
+                                    id: elm.id,
+                                    name: elm.name,
+                                    cost: elm.cost,
+                                })}
                             >
                                 Add to Cart
                             </button>

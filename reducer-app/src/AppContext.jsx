@@ -6,23 +6,29 @@ const cartReducer = (state, action) => {
     switch (action.type) {
         case "ADD_ITEM":
             state.totalCost += action.cost;
-            return [
-                ...state.items,
-                {
-                    id: action.id,
-                    name: action.name,
-                    cost: action.cost,
-                    count: 1,
-                },
-            ];
-        case "ADD_ANOTHER":
-            return state.items.map((item) => {
-                if (item.id === action.id) item.count++;
-                return item;
+            let contains = false;
+            state.items.map((item) => {
+                if (item.id === id) contains = true;
             });
+            if (!contains) {
+                return [
+                    ...state.items,
+                    {
+                        id: action.id,
+                        name: action.name,
+                        cost: action.cost,
+                        count: 1,
+                    },
+                ];
+            } else {
+                state = state.items.map((item) => {
+                    if (item.id === action.id) item.count++;
+                    return item;
+                });
+            }
         case "REMOVE_ITEM":
             state.totalCost -= action.cost;
-            return state.items.map((item) => {
+            return (state = state.items.map((item) => {
                 if (item.id === action.id) {
                     if (item.count > 1) item.count--;
                     else {
@@ -30,7 +36,7 @@ const cartReducer = (state, action) => {
                         return state;
                     }
                 } else return item;
-            });
+            }));
     }
 };
 

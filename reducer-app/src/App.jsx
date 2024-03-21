@@ -2,6 +2,7 @@ import { AppProvider, useAppContext } from "./AppContext";
 import "./App.css";
 import Item from "./components/Item/Item";
 import Cart from "./components/Cart/Cart";
+import { useEffect } from "react";
 
 const items = [
     { id: 1, name: "Laptop", cost: 1000 },
@@ -13,8 +14,29 @@ const items = [
 
 const Main = () => {
     const { cartState, cartDispatch } = useAppContext();
-    function handleAdd() {
-        cartDispatch();
+    useEffect(() => {
+        console.log(cartState);
+    }, [cartState]);
+
+    function handleAdd(id, name, cost) {
+        let contains = false;
+        cartState.items.forEach((item) => {
+            if (item.id === id) contains = true;
+        });
+
+        if (contains) {
+            cartDispatch({
+                type: "ADD_ANOTHER",
+                id: id,
+            });
+        } else {
+            cartDispatch({
+                type: "ADD_ITEM",
+                id: id,
+                name: name,
+                cost: cost,
+            });
+        }
     }
 
     return (
@@ -24,7 +46,11 @@ const Main = () => {
                     return (
                         <>
                             <Item id={elm.id} name={elm.name} cost={elm.cost} />
-                            <button onClick={handleAdd}>Add to Cart</button>
+                            <button
+                                onClick={handleAdd(elm.id, elm.name, elm.cost)}
+                            >
+                                Add to Cart
+                            </button>
                         </>
                     );
                 })}

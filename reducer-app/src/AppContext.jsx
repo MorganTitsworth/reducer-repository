@@ -11,15 +11,18 @@ const cartReducer = (state, action) => {
                 if (item.id === action.id) contains = true;
             });
             if (!contains) {
-                state.items = [
-                    ...state.items,
-                    {
-                        id: action.id,
-                        name: action.name,
-                        cost: action.cost,
-                        count: 1,
-                    },
-                ];
+                return {
+                    items: [
+                        ...state.items,
+                        {
+                            id: action.id,
+                            name: action.name,
+                            cost: action.cost,
+                            count: 1,
+                        },
+                    ],
+                    totalCost: state.totalCost,
+                };
             } else {
                 state.items.map((item) => {
                     if (item.id === action.id) item.count++;

@@ -5,7 +5,6 @@ const AppContext = createContext();
 const cartReducer = (state, action) => {
     switch (action.type) {
         case "ADD_ITEM":
-            state.totalCost += action.cost;
             let contains = false;
             state.items.map((item) => {
                 if (item.id === action.id) contains = true;
@@ -21,21 +20,25 @@ const cartReducer = (state, action) => {
                             count: 1,
                         },
                     ],
-                    totalCost: state.totalCost,
+                    totalCost: (state.totalCost =
+                        state.totalCost + action.cost),
                 };
             } else {
-                return state.items.map((item) => {
-                    item.id === action.id
-                        ? {
-                              id: item.id,
-                              name: item.name,
-                              cost: item.cost,
-                              count: (item.count += 1),
-                          }
-                        : item;
-                });
+                return {
+                    items: state.items.map((item) =>
+                        item.id === action.id
+                            ? {
+                                  id: item.id,
+                                  name: item.name,
+                                  cost: item.cost,
+                                  count: item.count++,
+                              }
+                            : item
+                    ),
+                    totalCost: (state.totalCost =
+                        state.totalCost + action.cost),
+                };
             }
-            break;
         case "REMOVE_ITEM":
             state.totalCost -= action.cost;
             state.items.map((item) => {

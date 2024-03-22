@@ -7,9 +7,18 @@ export default function Cart() {
 
     return (
         <>
-            <div className='cost'></div>
-            <div className='itemsInCart'></div>
-            <div className='totalCost'></div>
+            <div className='itemsInCart'>
+                {cartState.items.map((item) => {
+                    return (
+                        <div className='item'>
+                            <p>{item.name}</p>
+                            <p>${item.cost}</p>
+                            <p>X {item.count}</p>
+                        </div>
+                    );
+                })}
+            </div>
+            <div className='totalCost'>{cartState.totalCost}</div>
         </>
     );
 }

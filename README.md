@@ -2,7 +2,7 @@
 
 ## State Shape
 
-Initial state shape is as follows:
+Initial state shape of the cartState is as follows:
 {
 items: [],
 }
@@ -13,8 +13,6 @@ We use an object containing an items array. I used an object in order to allow t
 
 When adding items to the cartState, we first search through the current state and identify if the item is already in the cart and set a contains flag to either true or false.
 
-When removing items from the cartState, we filter through the items array and remove the item.id that matches the action.id
-
 ### Cart contains the item
 
 Flag remains false, we return the state object, within the items array we spread items array and add a new object that contains id, name, cost, and count.
@@ -22,3 +20,11 @@ Flag remains false, we return the state object, within the items array we spread
 ### Cart does not contain item
 
 Flag is set to true, we return the state object, map through the items and find the item.id that matches the action.id and incriment the count within the item object.
+
+### Removing items from the cart
+
+When removing items from the cartState, we filter through the items array and find the item.id that matches the action.id. We set this to a variable.
+
+We then check if the count - 1 is 0. if it is, we filter the entire items array and remove the object from the array.
+
+Otherwise we map through the items array again, and return the object with the count decremented by 1. We do this by using the spread opporator and redefining the count.

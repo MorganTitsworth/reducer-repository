@@ -36,13 +36,23 @@ const cartReducer = (state, action) => {
                 };
             }
         case "REMOVE_ITEM":
-            return {
-                items: [
-                    state.items.filter((item) => {
-                        item.id !== action.id;
-                    }),
-                ],
-            };
+            let desired_item = state.items.filter(
+                (item) => item.id === action.id
+            )[0];
+
+            if (desired_item.count - 1 == 0) {
+                return {
+                    items: state.items.filter((item) => item.id !== action.id),
+                };
+            } else {
+                return {
+                    items: state.items.map((item) =>
+                        item.id !== action.id
+                            ? item
+                            : { ...desired_item, count: desired_item.count - 1 }
+                    ),
+                };
+            }
     }
 };
 

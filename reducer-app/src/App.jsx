@@ -13,7 +13,11 @@ const items = [
 ];
 
 const Main = () => {
-    const { cartDispatch } = useAppContext();
+    const { cartState, cartDispatch } = useAppContext();
+
+    useEffect(() => {
+        console.log(cartState);
+    }, [cartState]);
 
     return (
         <div className='app-container'>

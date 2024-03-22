@@ -12,14 +12,7 @@ const messageReducer = (state, action) => {
             return {
                 messages: [...state.messages,action.payload], //state.messages is the original and action is whats added
             };
-        case "USER_TWO":
-            return {
-                messages: [...state.messages,action.payload], //everything that was there ( ...state.todo) and then some(action.payload)
-            };
-        case "REMOVE_TODO":
-            return {
-                messages:state.messages.filter((todo) => todo.id !== action.payload.id), //filter out payload.id
-            };
+       
         default:
             return state;
     }
@@ -30,7 +23,7 @@ export const ToDoProvider = ({children}) => {
     const [userOneMessage, setUserOneMessage] = useState("")
     const [userTwoMessage, setUserTwoMessage] = useState("")
 
-    console.log(state, setUserTwoMessage);
+    console.log(state);
 
     useEffect(() => {
         const contextMenuHandler = function(e) {
@@ -44,10 +37,12 @@ export const ToDoProvider = ({children}) => {
             var deleteButton = document.createElement('button');
             deleteButton.className = 'delete-button'; // Add a class for easier identification to only allow one button declared in the if statement
             deleteButton.innerText = 'Delete';
+
             deleteButton.onclick = function() {
                  // Remove the paragraph when the delete button is clicked
               e.target.remove();
             };
+
             // Append the delete button to the paragraph
             e.target.appendChild(deleteButton);
           }

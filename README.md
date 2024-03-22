@@ -1,10 +1,32 @@
-If any user types anything in the field and click send, the send will do a handleclick event which will use the dispatch function to layout message. in the dispatch I will have a case that which user is click submit to complete the task and have a 
+Overview
 
+    This messaging app allows users to send messages and view them in real-time. It's built using React and Hooks: useState, useEffect, useContext, useReducer.
 
-A hook folder is created that has a javascript file that export ToDoContext. It creates a createContext named "TodoContext". It is being called as as function of useToDo to change in useContext. It have a function that declare what data will connect through different files under the App file. It is declaring a useReducer to load the messages and two useStates to store each message.
+Usage
 
-UseState are in both of the users, it is connecting through the useToDo information as a useContext. 
+Sending Messages
+1. Enter your message in the textarea provided.
+2. Click the "Send" button to submit your message.
+3. Your message will be displayed in the message board.
 
-The textarea is where you write the messsage, and when you click the send button, it will return an object payload which has the id, message, and user. That information will go to the useReducer to store the message.
+Deleting Messages
+    You can delete messages by right-clicking on them.
 
-The useEffect allows me to delete the message by using a addEventListener
+Folder Structure
+
+-hooks Folder
+    Contains a JavaScript file that exports ToDoContext. This file creates a context named "TodoContext" using createContext. It also provides a function useToDo to replace useContext for easier access to the context data across different files within the App directory.
+
+-Operation
+Contains the main components and logic for the messaging app.
+
+    1. State Management: Utilizes useReducer to manage messages and useState to store each user's message.
+    2. Message Input: The textarea allows users to write messages.
+    3. Sending Messages: When the "Send" button is clicked, a handleClick event is triggered. This event uses dispatch to send the message data, including the message ID, content, and user, to the reducer.
+    4. Displaying Messages: Messages are displayed in the message board component.
+    5. Deleting Messages: The useEffect hook is used to delete messages. An addEventListener allows users to delete messages by right-clicking on them.
+
+How Hooks Are Used
+1. useState: Used to manage the state of user messages. Two separate state variables userOneMessage and userTwoMessage are created to store messages for each user.
+2. useReducer: Manages the global state of the application. The messageReducer function handles actions related to messages, such as adding new messages.
+3. useEffect: Used to add a context menu event listener for deleting messages. This hook ensures that the event listener is added only once when the component mounts and removed when the component unmounts.

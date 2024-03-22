@@ -1,0 +1,82 @@
+.App {
+  text-align: center;
+  
+}
+
+.App-header {
+  background-color: #282c34;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  font-size: 150%;
+  color: white;
+}
+
+.message-board {
+    min-width: 300px;
+    max-height: auto;
+    background-color: white;
+    width:500px;
+    height:700px;
+    margin: 0 4vw;
+    border-radius: 20px;
+    overflow: auto; /*enables scrolling when the message reaches the bottom of the screen*/
+}
+
+.user-board{
+  display: flex;
+  flex-direction: column;
+  }
+
+  textarea {
+    width:500-6px;
+    margin: 20px 4vw;
+    min-width: 300px;
+    height:60px;
+    word-wrap:break-word;
+    line-height: 20px;
+    border-radius: 20px;
+    padding-inline: 10px;
+    font-size: 100%
+  }
+
+.userOne {
+  background-color: blueviolet;
+}
+
+.userTwo {
+  background-color: blue;
+}
+
+.userContent {
+  width:45%;
+  word-wrap:break-word;
+  margin:2% 0;
+  text-align: start;
+  position: relative;
+  padding-inline: 10px;
+
+}
+
+.left-side {
+  border-radius: 0 10px 10px 0;
+}
+
+.right-side {
+  border-radius: 10px 0 0 10px;
+  left:100%;
+  translate: -100%;
+  
+}
+
+button {
+  width: 100px;
+  height: 49px;
+  border-radius:20px;
+  margin-left: 70%;
+  margin-bottom:50px;
+  font-size: 20px;
+}

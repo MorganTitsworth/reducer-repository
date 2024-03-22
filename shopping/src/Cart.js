@@ -6,6 +6,7 @@ import ProductList from './ProductList';
 const Cart = () => {
   const { state, dispatch } = useCart();
 
+  //removes items from cart
   const handleRemoveItem = item => {
     dispatch({ type: 'REMOVE_ITEM', payload: item });
   };
@@ -19,7 +20,7 @@ const Cart = () => {
         ))}
       </div>
       <div className="total">Total: ${state.total}</div>
-      <ProductList /> 
+      <ProductList />
     </div>
   );
 };

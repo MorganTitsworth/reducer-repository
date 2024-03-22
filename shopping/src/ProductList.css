@@ -1,16 +1,40 @@
 .product-list {
-    margin-bottom: 20px;
-  }
-  
-  .product-info {
-    display: flex;
-    align-items: center;
-    margin-bottom: 10px;
-  }
-  
-  .product-info img {
-    width: 100px;
-    height: 100px;
-    margin-right: 10px;
-  }
-  
+  margin-bottom: 20px;
+}
+
+
+.product-info img {
+  width: 100px;
+  height: 100px;
+  margin-right: 10px;
+}
+
+
+.cart-container {
+position: fixed;
+top: 0;
+left: 0;
+padding: 10px;
+background-color: #fff;
+z-index: 1000;
+}
+
+
+.cart {
+padding: 30px;
+background-color: #fff;
+}
+
+.cart-items {
+max-height: 200px;
+overflow-y: auto;
+}
+
+.total {
+margin-top: 10px;
+font-weight: bold;
+}
+
+button {
+background-color: rgb(187, 211, 245);
+}

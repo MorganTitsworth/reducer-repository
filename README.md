@@ -30,3 +30,4 @@ How Hooks Are Used
 1. useState: Used to manage the state of user messages. Two separate state variables userOneMessage and userTwoMessage are created to store messages for each user.
 2. useReducer: Manages the global state of the application. The messageReducer function handles actions related to messages, such as adding new messages.
 3. useEffect: Used to add a context menu event listener for deleting messages. This hook ensures that the event listener is added only once when the component mounts and removed when the component unmounts.
+    -The contextmenu is the menu when you right-click. So the useEffect listens for the right click. It the tagName is P and there is no class "delete-button", to create a button with the class name in the location where the tagName P is. When you click the button, it removes the target, and later removes the EvenListener

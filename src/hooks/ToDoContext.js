@@ -1,4 +1,4 @@
-import {createContext, useReducer, useContext, useState} from "react";
+import {createContext, useReducer, useContext, useState, useEffect} from "react";
 
 const ToDoContext = createContext(); //declare a vaiable to create context
 
@@ -31,12 +31,35 @@ export const ToDoProvider = ({children}) => {
     const [userTwoMessage, setUserTwoMessage] = useState("")
 
     console.log(state, setUserTwoMessage);
-    if (document.addEventListener) {
-        document.addEventListener('contextmenu', function(e) {
-          alert("You've tried to open context menu"); //here you draw your own menu
-          e.preventDefault();
-        }, false);
-    }
+
+    useEffect(() => {
+        const contextMenuHandler = function(e) {
+            if (e.target.tagName === "P" && e.target.querySelectorAll(".delete-button").length === 0) {
+                //e.target.querySelectorAll(".delete-button").length === 0 prevent multiple actions such as multiple delete buttons
+
+                // Prevent the default context menu behavior
+            e.preventDefault();
+            
+             // Create a delete button
+            var deleteButton = document.createElement('button');
+            deleteButton.className = 'delete-button'; // Add a class for easier identification to only allow one button declared in the if statement
+            deleteButton.innerText = 'Delete';
+            deleteButton.onclick = function() {
+                 // Remove the paragraph when the delete button is clicked
+              e.target.remove();
+            };
+            // Append the delete button to the paragraph
+            e.target.appendChild(deleteButton);
+          }
+        };
+    
+        document.addEventListener('contextmenu', contextMenuHandler);
+    
+        return () => {
+          document.removeEventListener('contextmenu', contextMenuHandler);
+        };
+      }, []); // Empty dependency array ensures this effect runs only once
+
     return (
         <ToDoContext.Provider 
             value = {{state, dispatch,userOneMessage, setUserOneMessage,userTwoMessage, setUserTwoMessage}}>  {/*passing the context of state,dispatch*/}

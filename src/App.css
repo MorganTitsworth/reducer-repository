@@ -80,3 +80,10 @@ button {
   margin-bottom:50px;
   font-size: 20px;
 }
+
+.delete-button {
+  position: absolute;
+  top: 25px; /* Adjust this value to position the button as desired */
+  right: 50%; /* Centers the button horizontally */
+  z-index:2;
+}

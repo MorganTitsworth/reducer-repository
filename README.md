@@ -6,3 +6,5 @@ A hook folder is created that has a javascript file that export ToDoContext. It 
 UseState are in both of the users, it is connecting through the useToDo information as a useContext. 
 
 The textarea is where you write the messsage, and when you click the send button, it will return an object payload which has the id, message, and user. That information will go to the useReducer to store the message.
+
+The useEffect allows me to delete the message by using a addEventListener

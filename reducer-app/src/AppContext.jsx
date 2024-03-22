@@ -25,8 +25,14 @@ const cartReducer = (state, action) => {
                 };
             } else {
                 state.items.map((item) => {
-                    if (item.id === action.id) item.count++;
-                    return item;
+                    item.id === action.id
+                        ? (item = {
+                              id: item.id,
+                              name: item.name,
+                              cost: item.cost,
+                              count: (item.count += 1),
+                          })
+                        : item;
                 });
             }
             break;

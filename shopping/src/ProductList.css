@@ -1,0 +1,16 @@
+.product-list {
+    margin-bottom: 20px;
+  }
+  
+  .product-info {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+  }
+  
+  .product-info img {
+    width: 100px;
+    height: 100px;
+    margin-right: 10px;
+  }
+  

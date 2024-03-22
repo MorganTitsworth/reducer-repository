@@ -13,24 +13,16 @@ const items = [
 ];
 
 const Main = () => {
-    const { cartState, cartDispatch } = useAppContext();
-
-    useEffect(() => {
-        console.log(cartState);
-    }, [cartState]);
+    const { cartDispatch } = useAppContext();
 
     return (
         <div className='app-container'>
-            <div className='itemContainer'>
+            <div className='items'>
+                <h2>Items</h2>
                 {items.map((elm) => {
                     return (
-                        <>
-                            <Item
-                                key={elm.id}
-                                id={elm.id}
-                                name={elm.name}
-                                cost={elm.cost}
-                            />
+                        <div key={elm.id} className='item'>
+                            <Item id={elm.id} name={elm.name} cost={elm.cost} />
                             <button
                                 onClick={() =>
                                     cartDispatch({
@@ -43,11 +35,12 @@ const Main = () => {
                             >
                                 Add to Cart
                             </button>
-                        </>
+                        </div>
                     );
                 })}
             </div>
             <div className='cartContainer'>
+                <h2>Cart</h2>
                 <Cart />
             </div>
         </div>

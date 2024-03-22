@@ -20,8 +20,6 @@ const cartReducer = (state, action) => {
                             count: 1,
                         },
                     ],
-                    totalCost: (state.totalCost =
-                        state.totalCost + action.cost),
                 };
             } else {
                 return {
@@ -35,29 +33,22 @@ const cartReducer = (state, action) => {
                               }
                             : item
                     ),
-                    totalCost: (state.totalCost =
-                        state.totalCost + action.cost),
                 };
             }
         case "REMOVE_ITEM":
-            state.totalCost -= action.cost;
-            state.items.map((item) => {
-                if (item.id === action.id) {
-                    if (item.count > 1) item.count--;
-                    else {
-                        let deleteItem = state.items.indexOf(item);
-                        state.items.splice(deleteItem, 1);
-                    }
-                }
-                return item;
-            });
+            return {
+                items: [
+                    state.items.filter((item) => {
+                        item.id !== action.id;
+                    }),
+                ],
+            };
     }
 };
 
 export const AppProvider = ({ children }) => {
     const [cartState, cartDispatch] = useReducer(cartReducer, {
         items: [],
-        totalCost: 0,
     });
 
     return (

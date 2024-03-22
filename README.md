@@ -1,15 +1,24 @@
-# reducer-repository
+# reducer-repository 2
 
-## useReducer
+## State Shape
 
-I created two seperate useReducer functions. One handles the theme state, which allows the user to change the background of the todo app to a random photo that corresponds to the color they choose.
+Initial state shape is as follows:
+{
+items: [],
+}
 
-The second useReducer function handles the todo list state. Allows the user to add, mark done, delete and edit tasks.
+We use an object containing an items array. I used an object in order to allow the initial state to be flexible and grow over time if need be.
 
-## useContext
+## Updating State Shape
 
-I used useContext to create an AppContext which passes both reducer functions and state values down the component tree. Allowing all children components to access whichever state/dispatch function they may need.
+When adding items to the cartState, we first search through the current state and identify if the item is already in the cart and set a contains flag to either true or false.
 
-## useEffect
+When removing items from the cartState, we filter through the items array and remove the item.id that matches the action.id
 
-I used useEffect to make an axios call to the Unsplash API. I combined the theme state from my reducer, to make custom API calls everytime a user clicks on a different theme button. Since the theme state is within the dependancy array in the useEffect function, every time the state is updated, new api call is made to retrieve a new background photo based on the state, and the background image re-rendered.
+### Cart contains the item
+
+Flag remains false, we return the state object, within the items array we spread items array and add a new object that contains id, name, cost, and count.
+
+### Cart does not contain item
+
+Flag is set to true, we return the state object, map through the items and find the item.id that matches the action.id and incriment the count within the item object.

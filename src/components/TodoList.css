@@ -1,0 +1,41 @@
+body {
+margin: 0;
+padding: 0;
+display: flex;
+justify-content: center;
+align-items: center;
+height: 100vh;
+background-color: rgb(104, 126, 103);
+}
+
+.todo-container {
+background-color: rgb(225, 255, 221);
+padding: 15px;
+border-radius: 10px;
+box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.2);
+border: 1px solid #000000;
+}
+
+.todo-form {
+margin-bottom: 10px;
+}
+
+.todo-form input[type="text"] {
+padding: 8px;
+border: 1px solid #000000;
+border-radius: 5px;
+width: 93%;
+margin-right: 0px;
+margin-bottom: 5px;
+}
+
+.todo-form button {
+padding: 3px 8px;
+background-color: #4CAF50;
+color: rgb(255, 255, 255);
+border: 1px solid #000000;
+border-radius: 5px;
+cursor: pointer;
+margin-left: 10px;
+box-shadow: 2px 2px 6px rgba(0, 0, 0, 0.2);
+}

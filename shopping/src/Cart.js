@@ -1,7 +1,7 @@
 import React from 'react';
 import CartItem from './CartItem';
 import { useCart } from './CartContext';
-import ProductList from './ProductList'; // Import ProductList component
+import ProductList from './ProductList'; 
 
 const Cart = () => {
   const { state, dispatch } = useCart();
@@ -19,7 +19,7 @@ const Cart = () => {
         ))}
       </div>
       <div className="total">Total: ${state.total}</div>
-      <ProductList /> {/* Render ProductList component */}
+      <ProductList /> 
     </div>
   );
 };

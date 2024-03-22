@@ -24,14 +24,14 @@ const cartReducer = (state, action) => {
                     totalCost: state.totalCost,
                 };
             } else {
-                state.items.map((item) => {
+                return state.items.map((item) => {
                     item.id === action.id
-                        ? (item = {
+                        ? {
                               id: item.id,
                               name: item.name,
                               cost: item.cost,
                               count: (item.count += 1),
-                          })
+                          }
                         : item;
                 });
             }

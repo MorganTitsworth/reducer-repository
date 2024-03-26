@@ -1,14 +1,18 @@
-import React from 'react';
-import { TodoProvider } from './components/TodoContext';
-import TodoList from './components/TodoList';
-function App() {
+import React from "react";
+import IdeaForm from "./IdeaForm";
+import IdeaList from "./IdeaList";
+import { AppProvider } from "./AppContext";
+
+const App = () => {
   return (
-    <div>
-    <TodoProvider>
-      <TodoList />
-    </TodoProvider>
-    </div>
+    <AppProvider>
+      <div className="App">
+        <h1>Brainstorming App</h1>
+        <IdeaForm />
+        <IdeaList />
+      </div>
+    </AppProvider>
   );
-}
-//Defines the App component and wraps TodoList inside of the TodoProvider(which provides the Todo List context).
+};
+
 export default App;
